@@ -1,0 +1,350 @@
+about:
+  date: November 04, 2024 08:15:44
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 11
+  number_tables: 12
+info_toggle_checked: true
+resources:
+  ApiKey:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: api_key
+      required: true
+    - name: created_at
+      type: DATETIME
+    description: This table manages API keys for third-party integrations.
+    info_list: This table manages API keys for third-party integrations.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: ApiKey
+    user_key: id
+  GoogleLogin:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: google_email
+      required: true
+    - name: google_id
+      required: true
+    description: This page shows details of users who signed up using Google OAuth.
+    info_list: This page shows details of users who signed up using Google OAuth.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: GoogleLogin
+    user_key: id
+  LoginHistory:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: login_time
+      type: DATETIME
+    - name: ip_address
+    description: This table records login history for users.
+    info_list: This table records login history for users.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: LoginHistory
+    user_key: id
+  Notification:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: message
+      required: true
+    - name: is_read
+    description: This page shows notifications to be sent to users.
+    info_list: This page shows notifications to be sent to users.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: Notification
+    user_key: id
+  Otp:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: otp_code
+      required: true
+    - name: created_at
+      type: DATETIME
+    - name: expires_at
+      required: true
+      type: DATETIME
+    description: This page shows OTP details for user verification.
+    info_list: This page shows OTP details for user verification.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: Otp
+    user_key: id
+  PasswordReset:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: reset_token
+      required: true
+    - name: expires_at
+      required: true
+      type: DATETIME
+    description: This table manages password reset requests.
+    info_list: This table manages password reset requests.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: PasswordReset
+    user_key: id
+  User:
+    attributes:
+    - label: ' username*'
+      name: username
+      required: true
+      search: true
+      sort: true
+    - name: email
+      required: true
+    - name: password_hash
+      required: true
+    - name: is_active
+    - name: id
+    description: This page shows user account information.
+    info_list: This page shows user account information.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - user_id
+      name: ApiKeyList
+      resource: ApiKey
+    - direction: tomany
+      fks:
+      - user_id
+      name: GoogleLoginList
+      resource: GoogleLogin
+    - direction: tomany
+      fks:
+      - user_id
+      name: LoginHistoryList
+      resource: LoginHistory
+    - direction: tomany
+      fks:
+      - user_id
+      name: NotificationList
+      resource: Notification
+    - direction: tomany
+      fks:
+      - user_id
+      name: OtpList
+      resource: Otp
+    - direction: tomany
+      fks:
+      - user_id
+      name: PasswordResetList
+      resource: PasswordReset
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserActivityList
+      resource: UserActivity
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserProfileList
+      resource: UserProfile
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserSettingList
+      resource: UserSetting
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserUserRoleList
+      resource: UserUserRole
+    type: User
+    user_key: username
+  UserActivity:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: activity_type
+      required: true
+    - name: timestamp
+      type: DATETIME
+    description: This table logs user actions for audit and tracking purposes.
+    info_list: This table logs user actions for audit and tracking purposes.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserActivity
+    user_key: id
+  UserProfile:
+    attributes:
+    - label: ' first_name*'
+      name: first_name
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: last_name
+    - name: id
+    description: This page shows additional user profile information.
+    info_list: This page shows additional user profile information.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserProfile
+    user_key: first_name
+  UserRole:
+    attributes:
+    - label: ' role_name*'
+      name: role_name
+      required: true
+      search: true
+      sort: true
+    - name: id
+    description: This table defines roles that can be assigned to users.
+    info_list: This table defines roles that can be assigned to users.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - role_id
+      name: UserUserRoleList
+      resource: UserUserRole
+    type: UserRole
+    user_key: role_name
+  UserSetting:
+    attributes:
+    - label: ' setting_name*'
+      name: setting_name
+      required: true
+      search: true
+      sort: true
+    - name: user_id
+      required: true
+    - name: setting_value
+    - name: id
+    description: This page shows user-specific application settings.
+    info_list: This page shows user-specific application settings.
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserSetting
+    user_key: setting_name
+  UserUserRole:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: role_id
+      required: true
+    - name: user_id
+      required: true
+    description: This linking table associates users with roles.
+    info_list: This linking table associates users with roles.
+    tab_groups:
+    - direction: toone
+      fks:
+      - role_id
+      name: role
+      resource: UserRole
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserUserRole
+    user_key: id
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'

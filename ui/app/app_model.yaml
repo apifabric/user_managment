@@ -1,0 +1,522 @@
+about:
+  date: November 04, 2024 08:15:44
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+entities:
+  ApiKey:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: api_key
+      required: true
+      template: text
+      type: VARCHAR
+    - name: created_at
+      type: DATETIME
+    description: This table manages API keys for third-party integrations.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This table manages API keys for third-party integrations.
+    label: ApiKey
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: ApiKey
+  GoogleLogin:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: google_email
+      required: true
+      template: text
+      type: VARCHAR
+    - name: google_id
+      required: true
+      template: text
+      type: VARCHAR
+    description: This page shows details of users who signed up using Google OAuth.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This page shows details of users who signed up using Google OAuth.
+    label: GoogleLogin
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: GoogleLogin
+  LoginHistory:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: login_time
+      type: DATETIME
+    - name: ip_address
+      template: text
+      type: VARCHAR
+    description: This table records login history for users.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This table records login history for users.
+    label: LoginHistory
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: LoginHistory
+  Notification:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: message
+      required: true
+      template: text
+      type: VARCHAR
+    - name: is_read
+      template: text
+      type: BOOLEAN
+    description: This page shows notifications to be sent to users.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This page shows notifications to be sent to users.
+    label: Notification
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: Notification
+  Otp:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: otp_code
+      required: true
+      template: text
+      type: VARCHAR
+    - name: created_at
+      type: DATETIME
+    - name: expires_at
+      required: true
+      type: DATETIME
+    description: This page shows OTP details for user verification.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This page shows OTP details for user verification.
+    label: Otp
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: Otp
+  PasswordReset:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: reset_token
+      required: true
+      template: text
+      type: VARCHAR
+    - name: expires_at
+      required: true
+      type: DATETIME
+    description: This table manages password reset requests.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This table manages password reset requests.
+    label: PasswordReset
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: PasswordReset
+  User:
+    columns:
+    - label: ' username*'
+      name: username
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: email
+      required: true
+      template: text
+      type: VARCHAR
+    - name: password_hash
+      required: true
+      template: text
+      type: VARCHAR
+    - name: is_active
+      template: text
+      type: BOOLEAN
+    - name: id
+      template: integer
+      type: INTEGER
+    description: This page shows user account information.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: username
+    home_template: home_template.html
+    info_list: This page shows user account information.
+    label: User
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - user_id
+      name: ApiKeyList
+      resource: ApiKey
+    - direction: tomany
+      fks:
+      - user_id
+      name: GoogleLoginList
+      resource: GoogleLogin
+    - direction: tomany
+      fks:
+      - user_id
+      name: LoginHistoryList
+      resource: LoginHistory
+    - direction: tomany
+      fks:
+      - user_id
+      name: NotificationList
+      resource: Notification
+    - direction: tomany
+      fks:
+      - user_id
+      name: OtpList
+      resource: Otp
+    - direction: tomany
+      fks:
+      - user_id
+      name: PasswordResetList
+      resource: PasswordReset
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserActivityList
+      resource: UserActivity
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserProfileList
+      resource: UserProfile
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserSettingList
+      resource: UserSetting
+    - direction: tomany
+      fks:
+      - user_id
+      name: UserUserRoleList
+      resource: UserUserRole
+    type: User
+  UserActivity:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: activity_type
+      required: true
+      template: text
+      type: VARCHAR
+    - name: timestamp
+      type: DATETIME
+    description: This table logs user actions for audit and tracking purposes.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This table logs user actions for audit and tracking purposes.
+    label: UserActivity
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserActivity
+  UserProfile:
+    columns:
+    - label: ' first_name*'
+      name: first_name
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: last_name
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: This page shows additional user profile information.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: first_name
+    home_template: home_template.html
+    info_list: This page shows additional user profile information.
+    label: UserProfile
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserProfile
+  UserRole:
+    columns:
+    - label: ' role_name*'
+      name: role_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: This table defines roles that can be assigned to users.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: role_name
+    home_template: home_template.html
+    info_list: This table defines roles that can be assigned to users.
+    label: UserRole
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: tomany
+      fks:
+      - role_id
+      name: UserUserRoleList
+      resource: UserUserRole
+    type: UserRole
+  UserSetting:
+    columns:
+    - label: ' setting_name*'
+      name: setting_name
+      required: true
+      search: true
+      sort: true
+      template: text
+      type: VARCHAR
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: setting_value
+      template: text
+      type: VARCHAR
+    - name: id
+      template: integer
+      type: INTEGER
+    description: This page shows user-specific application settings.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: setting_name
+    home_template: home_template.html
+    info_list: This page shows user-specific application settings.
+    label: UserSetting
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserSetting
+  UserUserRole:
+    columns:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+      template: integer
+      type: INTEGER
+    - name: role_id
+      required: true
+      template: integer
+      type: INTEGER
+    - name: user_id
+      required: true
+      template: integer
+      type: INTEGER
+    description: This linking table associates users with roles.
+    detail_template: detail_template.html
+    exclude: 'false'
+    favorite: id
+    home_template: home_template.html
+    info_list: This linking table associates users with roles.
+    label: UserUserRole
+    mode: tab
+    new_template: new_template.html
+    primary_key:
+    - id
+    tab_groups:
+    - direction: toone
+      fks:
+      - role_id
+      name: role
+      resource: UserRole
+    - direction: toone
+      fks:
+      - user_id
+      name: user
+      resource: User
+    type: UserUserRole
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: false
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    mode: tab
+    pick_style: list
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: false

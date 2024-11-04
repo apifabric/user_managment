@@ -1,0 +1,118 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+ApiKey: This table manages API keys for third-party integrations.
+User: user account information.
+GoogleLogin: details of users who signed up using Google OAuth.
+LoginHistory: login history for users.
+Notification: notifications to be sent to users.
+Otp: OTP details for user verification.
+PasswordReset: This table manages password reset requests.
+UserActivity: This table logs user actions for audit and tracking purposes.
+UserProfile: additional user profile information.
+UserRole: This table defines roles that can be assigned to users.
+UserSetting: user-specific application settings.
+UserUserRole: This linking table associates users with roles.
+'''
+}
+
+Table ApiKey {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    api_key VARCHAR 
+    created_at DATETIME 
+    }
+
+Table User {
+    id INTEGER [primary key]
+    username VARCHAR 
+    email VARCHAR 
+    password_hash VARCHAR 
+    is_active BOOLEAN 
+    }
+
+Table GoogleLogin {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    google_id VARCHAR 
+    google_email VARCHAR 
+    }
+
+Table LoginHistory {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    login_time DATETIME 
+    ip_address VARCHAR 
+    }
+
+Table Notification {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    message VARCHAR 
+    is_read BOOLEAN 
+    }
+
+Table Otp {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    otp_code VARCHAR 
+    created_at DATETIME 
+    expires_at DATETIME 
+    }
+
+Table PasswordReset {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    reset_token VARCHAR 
+    expires_at DATETIME 
+    }
+
+Table UserActivity {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    activity_type VARCHAR 
+    timestamp DATETIME 
+    }
+
+Table UserProfile {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    first_name VARCHAR 
+    last_name VARCHAR 
+    }
+
+Table UserRole {
+    id INTEGER [primary key]
+    role_name VARCHAR 
+    }
+
+Table UserSetting {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    setting_name VARCHAR 
+    setting_value VARCHAR 
+    }
+
+Table UserUserRole {
+    id INTEGER [primary key]
+    user_id INTEGER 
+    role_id INTEGER 
+    }
+
+
+
+// Relationships
+    Ref: ApiKey.(user_id) < User.(id)
+    Ref: GoogleLogin.(user_id) < User.(id)
+    Ref: LoginHistory.(user_id) < User.(id)
+    Ref: Notification.(user_id) < User.(id)
+    Ref: Otp.(user_id) < User.(id)
+    Ref: PasswordReset.(user_id) < User.(id)
+    Ref: UserActivity.(user_id) < User.(id)
+    Ref: UserProfile.(user_id) < User.(id)
+    Ref: UserSetting.(user_id) < User.(id)
+    Ref: UserUserRole.(role_id) < UserRole.(id)
+    Ref: UserUserRole.(user_id) < User.(id)
